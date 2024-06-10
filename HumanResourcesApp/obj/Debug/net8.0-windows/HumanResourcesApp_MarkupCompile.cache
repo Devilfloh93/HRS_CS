@@ -4,17 +4,17 @@
 winexe
 C#
 .cs
-C:\Users\Administrator\Desktop\Programmierung\C#\HumanResourcesApp\HumanResourcesApp\obj\Debug\net8.0-windows\
+C:\Users\Administrator\Desktop\Programmierung\CS\HumanResourcesApp\HumanResourcesApp\obj\Debug\net8.0-windows\
 HumanResourcesApp
 none
 false
 TRACE;DEBUG;NET;NET8_0;NETCOREAPP
-C:\Users\Administrator\Desktop\Programmierung\C#\HumanResourcesApp\HumanResourcesApp\App.xaml
-11407045341
+C:\Users\Administrator\Desktop\Programmierung\CS\HumanResourcesApp\HumanResourcesApp\App.xaml
+2-1376777318
 
-61617818985
-198-1509178875
-MainWindow.xaml;
+71662960424
+202-1721161860
+Login.xaml;MainWindow.xaml;
 
 False
 
