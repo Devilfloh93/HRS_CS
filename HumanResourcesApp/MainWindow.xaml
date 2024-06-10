@@ -5,6 +5,34 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:HumanResourcesApp"
         mc:Ignorable="d"
-        Title="MainWindow" Height="450" Width="800">
-    <Grid />
+        Title="MainWindow" Height="600" Width="1024" ResizeMode="NoResize">
+    <Grid>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="20">
+            </ColumnDefinition>
+            <ColumnDefinition>
+            </ColumnDefinition>
+            <ColumnDefinition>
+            </ColumnDefinition>
+            <ColumnDefinition>
+            </ColumnDefinition>
+            <ColumnDefinition>
+            </ColumnDefinition>
+            <ColumnDefinition Width="20">
+            </ColumnDefinition>
+        </Grid.ColumnDefinitions>
+
+        <Grid.RowDefinitions>
+            <RowDefinition Height="20"></RowDefinition>
+            <RowDefinition></RowDefinition>
+            <RowDefinition></RowDefinition>
+            <RowDefinition></RowDefinition>
+            <RowDefinition Height="20"></RowDefinition>
+        </Grid.RowDefinitions>
+
+        <Grid.Background>
+            <ImageBrush>
+            </ImageBrush>
+        </Grid.Background>
+    </Grid>
 </Window>

@@ -10,5 +10,4 @@ namespace HumanResourcesApp
     public partial class App : Application
     {
     }
-
 }

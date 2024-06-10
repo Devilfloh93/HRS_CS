@@ -6,35 +6,28 @@ using System.Threading.Tasks;
 
 namespace HumanResourcesApp
 {
-    internal class Employee : PersonalData
+    internal class Employee : Person
     {
-        private List<DateFormat> sickDays = [];
-
-        private List<DateFormat> usedHolidays = [];
-
         public double Salary { get; private set; }
         public int MaxHolidays { get; private set; }
 
         public List<DateFormat> UsedHolidays
         {
-            get => usedHolidays;
-            set
-            {
-                usedHolidays = value;
-            }
-        }
+            get;
+        } = [];
 
         public List<DateFormat> SickDays
         {
-            get => sickDays;
-            set
-            {
-                sickDays = value;
-            }
-        }
+            get;
+        } = [];
 
-        public Employee(string firstname, string lastname, DateFormat birthDate, string streetAdress, string postalCode, string city, string state, string country, double salary, int holidays)
-            : base(firstname, lastname, birthDate, streetAdress, postalCode, city, state, country)
+        public List<DateFormat> PlannedHolidays
+        {
+            get;
+        } = [];
+
+        public Employee(string firstname, string middleName, string lastname, string gender, DateFormat birthDate, string streetAdress, string postalCode, string city, string state, string country, double salary, int holidays)
+            : base(firstname, middleName, lastname, gender, birthDate, streetAdress, postalCode, city, state, country)
         {
             Salary = salary;
             MaxHolidays = holidays;

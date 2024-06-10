@@ -23,7 +23,7 @@ namespace HumanResourcesApp
 
             DateFormat newDate = new(13, 08, 1993);
 
-            Employee employee = new("Florian", "Pötzsch", newDate, "Boxberger Str. 13", "01239", "Dresden", "Sachsen", "Germany", 20000.50, 24);
+            Employee employee = new("Florian", "", "Pötzsch", "männlich", newDate, "Boxberger Str. 13", "01239", "Dresden", "Sachsen", "Germany", 20000.50, 24);
 
             employee.UsedHolidays.Add(new DateFormat(02, 09, 2004));
             employee.UsedHolidays.Add(new DateFormat(03, 09, 2004));
