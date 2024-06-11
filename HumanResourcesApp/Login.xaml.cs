@@ -32,7 +32,7 @@ namespace HumanResourcesApp
 
             if (username == "test" && password == "test")
             {
-                MainWindow mainWindow = new MainWindow();
+                MainWindow mainWindow = new();
                 mainWindow.Show();
                 this.Close();
             }
@@ -40,6 +40,13 @@ namespace HumanResourcesApp
             {
                 Debug.WriteLine("Wrong Username or Password!");
             }
+        }
+
+        private void Button_Click_ResetPassword(object sender, RoutedEventArgs e)
+        {
+            ResetPassword resetPasswordWindow = new();
+            resetPasswordWindow.Show();
+            this.Close();
         }
     }
 }

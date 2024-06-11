@@ -5,34 +5,107 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:HumanResourcesApp"
         mc:Ignorable="d"
-        Title="MainWindow" Height="600" Width="1024" ResizeMode="NoResize">
+        Title="Personalverwaltungssoftware" Width="1280" Height="800" WindowStartupLocation="CenterScreen" ResizeMode="CanResize" UseLayoutRounding="True">
     <Grid>
         <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="20">
-            </ColumnDefinition>
-            <ColumnDefinition>
-            </ColumnDefinition>
-            <ColumnDefinition>
-            </ColumnDefinition>
-            <ColumnDefinition>
-            </ColumnDefinition>
-            <ColumnDefinition>
-            </ColumnDefinition>
-            <ColumnDefinition Width="20">
-            </ColumnDefinition>
+            <ColumnDefinition Width="100"></ColumnDefinition>
+            <ColumnDefinition></ColumnDefinition>
+            <ColumnDefinition Width="100"></ColumnDefinition>
         </Grid.ColumnDefinitions>
 
         <Grid.RowDefinitions>
-            <RowDefinition Height="20"></RowDefinition>
+            <RowDefinition Height="60"></RowDefinition>
             <RowDefinition></RowDefinition>
-            <RowDefinition></RowDefinition>
-            <RowDefinition></RowDefinition>
-            <RowDefinition Height="20"></RowDefinition>
         </Grid.RowDefinitions>
 
-        <Grid.Background>
-            <ImageBrush>
-            </ImageBrush>
-        </Grid.Background>
+        <Grid>
+            <Image Source="/CompanyIcon.bmp" />
+        </Grid>
+
+        <Grid Grid.Row="1">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="100"></ColumnDefinition>
+            </Grid.ColumnDefinitions>
+
+            <Grid.RowDefinitions>
+                <RowDefinition Height="60"></RowDefinition>
+                <RowDefinition Height="60"></RowDefinition>
+                <RowDefinition Height="60"></RowDefinition>
+                <RowDefinition Height="60"></RowDefinition>
+                <RowDefinition Height="60"></RowDefinition>
+                <RowDefinition Height="60"></RowDefinition>
+                <RowDefinition Height="60"></RowDefinition>
+                <RowDefinition Height="60"></RowDefinition>
+                <RowDefinition Height="60"></RowDefinition>
+                <RowDefinition Height="60"></RowDefinition>
+                <RowDefinition Height="60"></RowDefinition>
+            </Grid.RowDefinitions>
+
+            <Border Grid.Row="0" Width="100" Height="60" BorderThickness="1" Background="LightBlue" HorizontalAlignment="Center" VerticalAlignment="Center" CornerRadius="5">
+                <Button Style="{DynamicResource ButtonStyle1}" Cursor="Hand" Content="Dashboard" Background="Transparent" BorderThickness="0" FontSize="14" />
+            </Border>
+            <Border Grid.Row="1" Width="100" Height="60" BorderThickness="1" Background="LightBlue" HorizontalAlignment="Center" VerticalAlignment="Center" CornerRadius="5">
+                <Button Style="{DynamicResource ButtonStyle1}" Cursor="Hand" Content="Profil" Background="Transparent" BorderThickness="0" FontSize="14" />
+            </Border>
+            <Border Grid.Row="2" Width="100" Height="60" BorderThickness="1" Background="LightBlue" HorizontalAlignment="Center" VerticalAlignment="Center" CornerRadius="5">
+                <Button Style="{DynamicResource ButtonStyle1}" Cursor="Hand" Content="Mitarbeiter" Background="Transparent" BorderThickness="0" FontSize="14" />
+            </Border>
+            <Border Grid.Row="3" Width="100" Height="60" BorderThickness="1" Background="LightBlue" HorizontalAlignment="Center" VerticalAlignment="Center" CornerRadius="5">
+                <Button Style="{DynamicResource ButtonStyle1}" Cursor="Hand" Content="Einstellungen" Background="Transparent" BorderThickness="0" FontSize="14" />
+            </Border>
+        </Grid>
+
+        <Grid Grid.Column="1">
+
+            <Label Grid.Column="2" Grid.Row="0" Content="Dashboard" HorizontalAlignment="Left" VerticalAlignment="Center" FontSize="24" />
+            <Border Grid.Column="3" Grid.Row="0" Grid.ColumnSpan="2" Width="440" Height="40" BorderThickness="1" BorderBrush="LightGray" HorizontalAlignment="Center" VerticalAlignment="Center"  CornerRadius="5">
+                <TextBox  TextWrapping="Wrap" VerticalContentAlignment="Center" FontSize="14" Background="Transparent" BorderThickness="0" />
+            </Border>
+        </Grid>
+
+        <Grid Grid.Column="1" Grid.Row="1">
+
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="10"></ColumnDefinition>
+                <ColumnDefinition></ColumnDefinition>
+            </Grid.ColumnDefinitions>
+
+            <Grid.RowDefinitions>
+                <RowDefinition Height="10" />
+                <RowDefinition />
+                <RowDefinition Height="50" />
+            </Grid.RowDefinitions>
+
+            <Grid Grid.Column="1" Grid.Row="1">
+
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition></ColumnDefinition>
+                    <ColumnDefinition Width="10"></ColumnDefinition>
+
+                    <ColumnDefinition></ColumnDefinition>
+                    <ColumnDefinition Width="10"></ColumnDefinition>
+                </Grid.ColumnDefinitions>
+
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="40"></RowDefinition>
+                    <RowDefinition></RowDefinition>
+                    <RowDefinition Height="10"></RowDefinition>
+                    <RowDefinition></RowDefinition>
+                    <RowDefinition Height="10"></RowDefinition>
+                </Grid.RowDefinitions>
+
+                <DataGrid Grid.Row="1" HeadersVisibility="Column"  HorizontalGridLinesBrush="LightGray" GridLinesVisibility="Horizontal" x:Name="DashboardGrid" ColumnHeaderStyle="{DynamicResource DataGridColumnHeaderStyle1}" Background="Transparent" BorderThickness="1" ColumnWidth="*" VerticalScrollBarVisibility="Auto" HorizontalScrollBarVisibility="Auto" CanUserResizeColumns="true" IsReadOnly="True" AutoGeneratingColumn="DashboardGrid_AutoGeneratingColumn" BorderBrush="LightGray" />
+
+                <Label Content="Meine Aufgaben" HorizontalAlignment="Left" VerticalAlignment="Center" FontSize="20" />
+
+                <Grid Grid.Column="1" Grid.RowSpan="4" Background="GhostWhite"></Grid>
+                <Grid Grid.Column="3" Grid.RowSpan="4" Background="GhostWhite"></Grid>
+                <Grid Grid.Row="2" Grid.ColumnSpan="3" Background="GhostWhite"></Grid>
+                <Grid Grid.Row="4" Grid.ColumnSpan="4" Background="GhostWhite"></Grid>
+            </Grid>
+
+            <Grid Grid.RowSpan="2" Background="GhostWhite"></Grid>
+            <Grid Grid.ColumnSpan="2" Background="GhostWhite"></Grid>
+        </Grid>
     </Grid>
 </Window>
