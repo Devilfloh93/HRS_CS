@@ -11,22 +11,22 @@ namespace HumanResourcesApp
         public double Salary { get; private set; }
         public int MaxHolidays { get; private set; }
 
-        public List<DateFormat> UsedHolidays
+        public List<DateOnly> UsedHolidays
         {
             get;
         } = [];
 
-        public List<DateFormat> SickDays
+        public List<DateOnly> SickDays
         {
             get;
         } = [];
 
-        public List<DateFormat> PlannedHolidays
+        public List<DateOnly> PlannedHolidays
         {
             get;
         } = [];
 
-        public Employee(string firstname, string middleName, string lastname, string gender, DateFormat birthDate, string streetAdress, string postalCode, string city, string state, string country, double salary, int holidays)
+        public Employee(string firstname, string middleName, string lastname, string gender, DateOnly birthDate, string streetAdress, string postalCode, string city, string state, string country, double salary, int holidays)
             : base(firstname, middleName, lastname, gender, birthDate, streetAdress, postalCode, city, state, country)
         {
             Salary = salary;

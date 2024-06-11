@@ -1,3 +1,10 @@
+C:\Users\Administrator\Desktop\Programmierung\CS\HumanResourcesApp\HumanResourcesApp\obj\Debug\net8.0-windows\HumanResourcesApp.csproj.AssemblyReference.cache
+C:\Users\Administrator\Desktop\Programmierung\CS\HumanResourcesApp\HumanResourcesApp\obj\Debug\net8.0-windows\Login.g.cs
+C:\Users\Administrator\Desktop\Programmierung\CS\HumanResourcesApp\HumanResourcesApp\obj\Debug\net8.0-windows\MainWindow.g.cs
+C:\Users\Administrator\Desktop\Programmierung\CS\HumanResourcesApp\HumanResourcesApp\obj\Debug\net8.0-windows\App.g.cs
+C:\Users\Administrator\Desktop\Programmierung\CS\HumanResourcesApp\HumanResourcesApp\obj\Debug\net8.0-windows\HumanResourcesApp_MarkupCompile.cache
+C:\Users\Administrator\Desktop\Programmierung\CS\HumanResourcesApp\HumanResourcesApp\obj\Debug\net8.0-windows\HumanResourcesApp_MarkupCompile.lref
+C:\Users\Administrator\Desktop\Programmierung\CS\HumanResourcesApp\HumanResourcesApp\obj\Debug\net8.0-windows\ResetPassword.g.cs
 C:\Users\Administrator\Desktop\Programmierung\CS\HumanResourcesApp\HumanResourcesApp\bin\Debug\net8.0-windows\HumanResourcesApp.exe
 C:\Users\Administrator\Desktop\Programmierung\CS\HumanResourcesApp\HumanResourcesApp\bin\Debug\net8.0-windows\HumanResourcesApp.deps.json
 C:\Users\Administrator\Desktop\Programmierung\CS\HumanResourcesApp\HumanResourcesApp\bin\Debug\net8.0-windows\HumanResourcesApp.runtimeconfig.json
@@ -27,14 +34,9 @@ C:\Users\Administrator\Desktop\Programmierung\CS\HumanResourcesApp\HumanResource
 C:\Users\Administrator\Desktop\Programmierung\CS\HumanResourcesApp\HumanResourcesApp\bin\Debug\net8.0-windows\runtimes\win-arm64\native\e_sqlite3.dll
 C:\Users\Administrator\Desktop\Programmierung\CS\HumanResourcesApp\HumanResourcesApp\bin\Debug\net8.0-windows\runtimes\win-x64\native\e_sqlite3.dll
 C:\Users\Administrator\Desktop\Programmierung\CS\HumanResourcesApp\HumanResourcesApp\bin\Debug\net8.0-windows\runtimes\win-x86\native\e_sqlite3.dll
-C:\Users\Administrator\Desktop\Programmierung\CS\HumanResourcesApp\HumanResourcesApp\obj\Debug\net8.0-windows\HumanResourcesApp.csproj.AssemblyReference.cache
-C:\Users\Administrator\Desktop\Programmierung\CS\HumanResourcesApp\HumanResourcesApp\obj\Debug\net8.0-windows\Login.g.cs
-C:\Users\Administrator\Desktop\Programmierung\CS\HumanResourcesApp\HumanResourcesApp\obj\Debug\net8.0-windows\MainWindow.g.cs
-C:\Users\Administrator\Desktop\Programmierung\CS\HumanResourcesApp\HumanResourcesApp\obj\Debug\net8.0-windows\App.g.cs
-C:\Users\Administrator\Desktop\Programmierung\CS\HumanResourcesApp\HumanResourcesApp\obj\Debug\net8.0-windows\HumanResourcesApp_MarkupCompile.cache
-C:\Users\Administrator\Desktop\Programmierung\CS\HumanResourcesApp\HumanResourcesApp\obj\Debug\net8.0-windows\HumanResourcesApp_MarkupCompile.lref
 C:\Users\Administrator\Desktop\Programmierung\CS\HumanResourcesApp\HumanResourcesApp\obj\Debug\net8.0-windows\Login.baml
 C:\Users\Administrator\Desktop\Programmierung\CS\HumanResourcesApp\HumanResourcesApp\obj\Debug\net8.0-windows\MainWindow.baml
+C:\Users\Administrator\Desktop\Programmierung\CS\HumanResourcesApp\HumanResourcesApp\obj\Debug\net8.0-windows\ResetPassword.baml
 C:\Users\Administrator\Desktop\Programmierung\CS\HumanResourcesApp\HumanResourcesApp\obj\Debug\net8.0-windows\HumanResourcesApp.g.resources
 C:\Users\Administrator\Desktop\Programmierung\CS\HumanResourcesApp\HumanResourcesApp\obj\Debug\net8.0-windows\HumanResourcesApp.GeneratedMSBuildEditorConfig.editorconfig
 C:\Users\Administrator\Desktop\Programmierung\CS\HumanResourcesApp\HumanResourcesApp\obj\Debug\net8.0-windows\HumanResourcesApp.AssemblyInfoInputs.cache
@@ -47,3 +49,4 @@ C:\Users\Administrator\Desktop\Programmierung\CS\HumanResourcesApp\HumanResource
 C:\Users\Administrator\Desktop\Programmierung\CS\HumanResourcesApp\HumanResourcesApp\obj\Debug\net8.0-windows\HumanResourcesApp.pdb
 C:\Users\Administrator\Desktop\Programmierung\CS\HumanResourcesApp\HumanResourcesApp\obj\Debug\net8.0-windows\HumanResourcesApp.genruntimeconfig.cache
 C:\Users\Administrator\Desktop\Programmierung\CS\HumanResourcesApp\HumanResourcesApp\obj\Debug\net8.0-windows\ref\HumanResourcesApp.dll
+C:\Users\Administrator\Desktop\Programmierung\CS\HumanResourcesApp\HumanResourcesApp\obj\Debug\net8.0-windows\App.baml
