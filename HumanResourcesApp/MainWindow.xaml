@@ -10,7 +10,7 @@
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="100"></ColumnDefinition>
             <ColumnDefinition></ColumnDefinition>
-            <ColumnDefinition Width="100"></ColumnDefinition>
+            <ColumnDefinition Width="300"></ColumnDefinition>
         </Grid.ColumnDefinitions>
 
         <Grid.RowDefinitions>
@@ -81,31 +81,246 @@
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition></ColumnDefinition>
                     <ColumnDefinition Width="10"></ColumnDefinition>
-
                     <ColumnDefinition></ColumnDefinition>
                     <ColumnDefinition Width="10"></ColumnDefinition>
                 </Grid.ColumnDefinitions>
 
                 <Grid.RowDefinitions>
-                    <RowDefinition Height="40"></RowDefinition>
+                    <RowDefinition></RowDefinition>
+                    <RowDefinition Height="10"></RowDefinition>
                     <RowDefinition></RowDefinition>
                     <RowDefinition Height="10"></RowDefinition>
                     <RowDefinition></RowDefinition>
                     <RowDefinition Height="10"></RowDefinition>
                 </Grid.RowDefinitions>
 
-                <DataGrid Grid.Row="1" HeadersVisibility="Column"  HorizontalGridLinesBrush="LightGray" GridLinesVisibility="Horizontal" x:Name="DashboardGrid" ColumnHeaderStyle="{DynamicResource DataGridColumnHeaderStyle1}" Background="Transparent" BorderThickness="1" ColumnWidth="*" VerticalScrollBarVisibility="Auto" HorizontalScrollBarVisibility="Auto" CanUserResizeColumns="true" IsReadOnly="True" AutoGeneratingColumn="DashboardGrid_AutoGeneratingColumn" BorderBrush="LightGray" />
+                <Grid>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition></ColumnDefinition>
+                    </Grid.ColumnDefinitions>
 
-                <Label Content="Meine Aufgaben" HorizontalAlignment="Left" VerticalAlignment="Center" FontSize="20" />
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="50"></RowDefinition>
+                        <RowDefinition></RowDefinition>
+                    </Grid.RowDefinitions>
 
-                <Grid Grid.Column="1" Grid.RowSpan="4" Background="GhostWhite"></Grid>
-                <Grid Grid.Column="3" Grid.RowSpan="4" Background="GhostWhite"></Grid>
-                <Grid Grid.Row="2" Grid.ColumnSpan="3" Background="GhostWhite"></Grid>
-                <Grid Grid.Row="4" Grid.ColumnSpan="4" Background="GhostWhite"></Grid>
+                    <DataGrid Grid.Row="1" HeadersVisibility="Column"  HorizontalGridLinesBrush="LightGray" GridLinesVisibility="Horizontal" x:Name="DashboardGrid" ColumnHeaderStyle="{DynamicResource DataGridColumnHeaderStyle1}" Background="Transparent" BorderThickness="1" ColumnWidth="*" VerticalScrollBarVisibility="Auto" HorizontalScrollBarVisibility="Auto" CanUserResizeColumns="true" IsReadOnly="True" AutoGeneratingColumn="DashboardGrid_AutoGeneratingColumn" BorderBrush="LightGray" />
+
+                    <Label Content="Meine Aufgaben" HorizontalAlignment="Left" VerticalAlignment="Center" FontSize="20" />
+
+                    <Button Content="Mehr >" HorizontalAlignment="Right" VerticalAlignment="Center" Width="70" Background="Transparent"  BorderThickness="0" Cursor="Hand" Style="{DynamicResource ButtonStyle1}" Foreground="LightBlue" Height="30" />
+                </Grid>
+
+                <Grid Grid.Column="1" Grid.RowSpan="6" Background="GhostWhite"></Grid>
+                <Grid Grid.Column="3" Grid.RowSpan="6" Background="GhostWhite"></Grid>
+                <Grid Grid.Row="1" Grid.ColumnSpan="4" Background="GhostWhite"></Grid>
+                <Grid Grid.Row="3" Grid.ColumnSpan="4" Background="GhostWhite"></Grid>
+                <Grid Grid.Row="5" Grid.ColumnSpan="4" Background="GhostWhite"></Grid>
+
+                <Grid Grid.Column="2">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition></ColumnDefinition>
+                    </Grid.ColumnDefinitions>
+
+                    <Grid.RowDefinitions>
+                        <RowDefinition></RowDefinition>
+                        <RowDefinition Height="10"></RowDefinition>
+                        <RowDefinition></RowDefinition>
+                    </Grid.RowDefinitions>
+
+                    <Grid Background="GhostWhite" Grid.Column="1" Grid.Row="1">
+                    </Grid>
+
+                    <Grid>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition></ColumnDefinition>
+                        </Grid.ColumnDefinitions>
+
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="40"></RowDefinition>
+                            <RowDefinition></RowDefinition>
+                            <RowDefinition Height="5"></RowDefinition>
+                        </Grid.RowDefinitions>
+
+                        <Label Content="Deine Anwesenheit" HorizontalAlignment="Left" VerticalAlignment="Center" FontSize="20" />
+                        <Button Content="Mehr >" HorizontalAlignment="Right" VerticalAlignment="Center" Width="70" Background="Transparent"  BorderThickness="0" Cursor="Hand" Style="{DynamicResource ButtonStyle1}" Foreground="LightBlue" Height="30" />
+
+                        <Grid Grid.Row="1">
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition></ColumnDefinition>
+                                <ColumnDefinition Width="1"></ColumnDefinition>
+                                <ColumnDefinition></ColumnDefinition>
+                                <ColumnDefinition Width="1"></ColumnDefinition>
+                                <ColumnDefinition></ColumnDefinition>
+                            </Grid.ColumnDefinitions>
+
+                            <Grid.RowDefinitions>
+                                <RowDefinition></RowDefinition>
+                                <RowDefinition></RowDefinition>
+                            </Grid.RowDefinitions>
+
+                            <Label Foreground="DarkGray"  Content="Anwesend" HorizontalAlignment="Center" VerticalAlignment="Bottom" FontSize="12" />
+                            <Label Foreground="DarkGray"  Grid.Column="2" Content="Abwesend" HorizontalAlignment="Center" VerticalAlignment="Bottom" FontSize="12" />
+                            <Label Foreground="DarkGray"  Grid.Column="4" Content="Verspätet" HorizontalAlignment="Center" VerticalAlignment="Bottom" FontSize="12" />
+
+                            <Label Grid.Row="1" Content="260" HorizontalAlignment="Center" VerticalAlignment="Top" FontSize="12" FontWeight="SemiBold" />
+                            <Label Grid.Column="2" Grid.Row="1" Content="15" HorizontalAlignment="Center" VerticalAlignment="Top" FontSize="12" FontWeight="SemiBold" />
+                            <Label Grid.Column="4" Grid.Row="1" Content="05" HorizontalAlignment="Center" VerticalAlignment="Top" FontSize="12" FontWeight="SemiBold" />
+
+                            <Grid Grid.Column="1" Grid.RowSpan="2" Background="LightGray" Height="35" VerticalAlignment="Center"></Grid>
+                            <Grid Grid.Column="3" Grid.RowSpan="2" Background="LightGray" Height="35" VerticalAlignment="Center"></Grid>
+                        </Grid>
+                    </Grid>
+
+                    <Grid Grid.Row="2">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition></ColumnDefinition>
+                        </Grid.ColumnDefinitions>
+
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="40"></RowDefinition>
+                            <RowDefinition></RowDefinition>
+                            <RowDefinition Height="5"></RowDefinition>
+                        </Grid.RowDefinitions>
+
+                        <Label Content="Urlaub" HorizontalAlignment="Left" VerticalAlignment="Center" FontSize="20" />
+                        <Button Content="Mehr >" HorizontalAlignment="Right" VerticalAlignment="Center" Width="70" Background="Transparent"  BorderThickness="0" Cursor="Hand" Style="{DynamicResource ButtonStyle1}" Foreground="LightBlue" Height="30" />
+                        <Grid Grid.Row="1">
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition></ColumnDefinition>
+                                <ColumnDefinition Width="1"></ColumnDefinition>
+                                <ColumnDefinition></ColumnDefinition>
+                                <ColumnDefinition Width="1"></ColumnDefinition>
+                                <ColumnDefinition></ColumnDefinition>
+                            </Grid.ColumnDefinitions>
+
+                            <Grid.RowDefinitions>
+                                <RowDefinition></RowDefinition>
+                                <RowDefinition></RowDefinition>
+                            </Grid.RowDefinitions>
+
+                            <Label Foreground="DarkGray"  Content="Insgesamt" HorizontalAlignment="Center" VerticalAlignment="Bottom" FontSize="12" />
+                            <Label Foreground="DarkGray"  Grid.Column="2" Content="Verbraucht" HorizontalAlignment="Center" VerticalAlignment="Bottom" FontSize="12" />
+                            <Label Foreground="DarkGray"  Grid.Column="4" Content="Verfügbar" HorizontalAlignment="Center" VerticalAlignment="Bottom" FontSize="12" />
+
+                            <Label Grid.Row="1" Content="12" HorizontalAlignment="Center" VerticalAlignment="Top" FontSize="12" FontWeight="SemiBold" />
+                            <Label Grid.Column="2" Grid.Row="1" Content="04" HorizontalAlignment="Center" VerticalAlignment="Top" FontSize="12" FontWeight="SemiBold" />
+                            <Label Grid.Column="4" Grid.Row="1" Content="08" HorizontalAlignment="Center" VerticalAlignment="Top" FontSize="12" FontWeight="SemiBold" />
+
+                            <Grid Grid.Column="1" Grid.RowSpan="2" Background="LightGray" Height="35" VerticalAlignment="Center"></Grid>
+                            <Grid Grid.Column="3" Grid.RowSpan="2" Background="LightGray" Height="35" VerticalAlignment="Center"></Grid>
+                        </Grid>
+                    </Grid>
+                </Grid>
+
+                <Grid Grid.Row="2">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition></ColumnDefinition>
+                    </Grid.ColumnDefinitions>
+
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="50"></RowDefinition>
+                        <RowDefinition></RowDefinition>
+                    </Grid.RowDefinitions>
+
+                    <Label Content="Ihr Zeitplan für diesen Monat" HorizontalAlignment="Left" VerticalAlignment="Center" FontSize="20" />
+                </Grid>
+
+                <Grid Grid.Column="2" Grid.Row="2">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition></ColumnDefinition>
+                    </Grid.ColumnDefinitions>
+
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="50"></RowDefinition>
+                        <RowDefinition></RowDefinition>
+                    </Grid.RowDefinitions>
+
+                    <Label Content="Ankündigungen" HorizontalAlignment="Left" VerticalAlignment="Center" FontSize="20" />
+                    <Button Content="Mehr >" HorizontalAlignment="Right" VerticalAlignment="Center" Width="70" Background="Transparent"  BorderThickness="0" Cursor="Hand" Style="{DynamicResource ButtonStyle1}" Foreground="LightBlue" Height="30" />
+                </Grid>
+
+                <Grid Grid.Row="4">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition></ColumnDefinition>
+                    </Grid.ColumnDefinitions>
+
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="50"></RowDefinition>
+                        <RowDefinition></RowDefinition>
+                    </Grid.RowDefinitions>
+
+                    <Label Content="PLACEHOLDER" HorizontalAlignment="Left" VerticalAlignment="Center" FontSize="20" />
+                </Grid>
+
+                <Grid Grid.Column="2" Grid.Row="4">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition></ColumnDefinition>
+                    </Grid.ColumnDefinitions>
+
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="50"></RowDefinition>
+                        <RowDefinition></RowDefinition>
+                    </Grid.RowDefinitions>
+
+                    <Label Content="PLACEHOLDER" HorizontalAlignment="Left" VerticalAlignment="Center" FontSize="20" />
+                    <Button Content="Mehr >" HorizontalAlignment="Right" VerticalAlignment="Center" Width="70" Background="Transparent"  BorderThickness="0" Cursor="Hand" Style="{DynamicResource ButtonStyle1}" Foreground="LightBlue" Height="30" />
+                </Grid>
             </Grid>
 
             <Grid Grid.RowSpan="2" Background="GhostWhite"></Grid>
             <Grid Grid.ColumnSpan="2" Background="GhostWhite"></Grid>
+        </Grid>
+
+        <Grid Grid.Column="2" Grid.Row="1">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition></ColumnDefinition>
+            </Grid.ColumnDefinitions>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="200"></RowDefinition>
+                <RowDefinition Height="40"></RowDefinition>
+                <RowDefinition Height="100"></RowDefinition>
+                <RowDefinition Height="40"></RowDefinition>
+                <RowDefinition Height="160"></RowDefinition>
+                <RowDefinition></RowDefinition>
+            </Grid.RowDefinitions>
+
+            <Image Source="/companyIcon.bmp" Height="100"  VerticalAlignment="Center" HorizontalAlignment="Center"  Width="100" />
+
+            <Label Grid.Row="1" Content="Deine Zeiten" HorizontalAlignment="Left" VerticalAlignment="Center" FontSize="20" />
+            <Label Grid.Row="3" Content="Kalender" HorizontalAlignment="Left" VerticalAlignment="Center" FontSize="20" />
+            <Calendar  Style="{DynamicResource CalendarStyle1}" HorizontalAlignment="Left" VerticalAlignment="Top" Grid.Row="4" BorderThickness="0" FontWeight="Bold" />
+
+            <Grid Grid.Row="2">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition></ColumnDefinition>
+                    <ColumnDefinition></ColumnDefinition>
+                </Grid.ColumnDefinitions>
+
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="25"></RowDefinition>
+                    <RowDefinition Height="25"></RowDefinition>
+                    <RowDefinition></RowDefinition>
+                </Grid.RowDefinitions>
+
+                <Label Foreground="MediumSeaGreen" Content="Arbeitszeit" HorizontalAlignment="Center" VerticalAlignment="Center" FontSize="12" />
+                <Border Grid.Column="1" Grid.Row="1" Width="140" Height="25"  BorderThickness="1" BorderBrush="LightBlue" Background="Transparent" HorizontalAlignment="Center" VerticalAlignment="Center">
+                    <Label x:Name="BreakTimer" Content="00:00:00" HorizontalAlignment="Center" VerticalAlignment="Top" FontSize="12" />
+                </Border>
+
+                <Label Foreground="OrangeRed" Grid.Column="1" Content="Pausenzeit" HorizontalAlignment="Center" VerticalAlignment="Center" FontSize="12" />
+                <Border Grid.Row="1" Width="140" Height="25"  BorderThickness="1" BorderBrush="LightBlue" Background="Transparent" HorizontalAlignment="Center" VerticalAlignment="Center">
+                    <Label x:Name="WorkTimer" Content="00:00:00" HorizontalAlignment="Center" VerticalAlignment="Top" FontSize="12" />
+                </Border>
+
+                <ComboBox x:Name="TimeDashboardCombo" HorizontalContentAlignment="Left" VerticalContentAlignment="Center" Style="{DynamicResource ComboBoxStyle1}" BorderThickness="1" BorderBrush="LightGray" HorizontalAlignment="Center" Grid.Row="2" VerticalAlignment="Center" Width="140" Height="30" Background="{x:Null}" />
+                <Border x:Name="ClockInBtn" Grid.Column="1" Grid.Row="2" Width="140" Height="30" BorderThickness="1" Background="MediumSeaGreen" HorizontalAlignment="Center" VerticalAlignment="Center" CornerRadius="5">
+                    <Button Style="{DynamicResource ButtonStyle1}" Cursor="Hand" Content="Einstempeln" Foreground="White" Background="Transparent" BorderThickness="0" FontSize="14" Click="Button_Click_ClockIn" />
+                </Border>
+                <Border x:Name="BreakBtn" Visibility="Hidden" Grid.Column="1" Grid.Row="2" Width="140" Height="30" BorderThickness="1" Background="OrangeRed" HorizontalAlignment="Center" VerticalAlignment="Center" CornerRadius="5">
+                    <Button Style="{DynamicResource ButtonStyle1}" Cursor="Hand" Content="Pause" Foreground="White" Background="Transparent" BorderThickness="0" FontSize="14" Click="Button_Click_Break" />
+                </Border>
+            </Grid>
         </Grid>
     </Grid>
 </Window>

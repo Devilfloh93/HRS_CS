@@ -26,11 +26,21 @@ namespace HumanResourcesApp
             get;
         } = [];
 
-        public Employee(string firstname, string middleName, string lastname, string gender, DateOnly birthDate, string streetAdress, string postalCode, string city, string state, string country, double salary, int holidays)
+        public List<DateOnly> Attendance
+        {
+            get;
+        } = [];
+
+        public List<DateOnly> WorkDays
+        {
+            get;
+        } = [];
+
+        public Employee(string firstname, string middleName, string lastname, string gender, DateOnly birthDate, string streetAdress, string postalCode, string city, string state, string country, double salary, int maxHolidays)
             : base(firstname, middleName, lastname, gender, birthDate, streetAdress, postalCode, city, state, country)
         {
             Salary = salary;
-            MaxHolidays = holidays;
+            MaxHolidays = maxHolidays;
         }
     }
 }

@@ -1,4 +1,6 @@
-﻿using System.Diagnostics;
+﻿using System;
+using System.Diagnostics;
+using System.Reflection.Emit;
 using System.Reflection.PortableExecutable;
 using System.Text;
 using System.Windows;
@@ -18,11 +20,27 @@ namespace HumanResourcesApp
     /// </summary>
     public partial class MainWindow : Window
     {
+        private User user = new("Florian", "", "Pötzsch", "männlich", new DateOnly(1993, 08, 13), "Boxberger Str. 13", "01239", "Dresden", "Sachsen", "Germany", 20000.50, 24);
+
         public MainWindow()
         {
             InitializeComponent();
 
+            user.SetLoggedInDate();
+
             DashboardGrid.ItemsSource = Task.LoadTaskData();
+
+            List<ClockIn> clockIns = ClockIn.LoadClockInData();
+            for (int i = 0; i < clockIns.Count; i++)
+            {
+                TimeDashboardCombo.Items.Add(clockIns[i].Categorie);
+            }
+
+            System.Windows.Threading.DispatcherTimer dispatcherTimer = new();
+            dispatcherTimer.Tick += new EventHandler(UpdateBreakTimer);
+            dispatcherTimer.Tick += new EventHandler(UpdateWorkTimer);
+            dispatcherTimer.Interval = TimeSpan.FromSeconds(1);
+            dispatcherTimer.Start();
 
             DateOnly newDate = new(1993, 08, 13);
 
@@ -56,7 +74,7 @@ namespace HumanResourcesApp
             switch (headername)
             {
                 case "ProjectName":
-                    e.Column.Header = "Projekt  ";
+                    e.Column.Header = "Projekt";
                     break;
 
                 case "TaskName":
@@ -71,6 +89,61 @@ namespace HumanResourcesApp
                     e.Column.Header = "Fälligkeitsdatum";
                     break;
             }
+        }
+
+        private void Button_Click_ClockIn(object sender, RoutedEventArgs e)
+        {
+            if (TimeDashboardCombo.SelectedIndex == -1)
+                return;
+
+            user.WorkTime.Start();
+            user.BreakTime.Stop();
+
+            switch (Enum.ToObject(typeof(ClockInCombo), TimeDashboardCombo.SelectedIndex))
+            {
+                case ClockInCombo.RemoteClockIn:
+                    Debug.WriteLine("Remote Clock in");
+                    break;
+
+                case ClockInCombo.WorkFromHome:
+                    Debug.WriteLine("Work from home");
+                    break;
+
+                case ClockInCombo.WorkAtCompany:
+                    Debug.WriteLine("Work at Company");
+                    break;
+            }
+
+            ClockInBtn.Visibility = Visibility.Hidden;
+            BreakBtn.Visibility = Visibility.Visible;
+        }
+
+        private void Button_Click_Break(object sender, RoutedEventArgs e)
+        {
+            user.WorkTime.Stop();
+            user.BreakTime.Start();
+
+            BreakBtn.Visibility = Visibility.Hidden;
+            ClockInBtn.Visibility = Visibility.Visible;
+        }
+
+        private void UpdateWorkTimer(object sender, EventArgs e)
+        {
+            TimeSpan timeSpan = user.WorkTime.Elapsed;
+            string elapsedTime = String.Format("{0:00}:{1:00}:{2:00}", timeSpan.Hours, timeSpan.Minutes, timeSpan.Seconds);
+            WorkTimer.Content = elapsedTime;
+
+            // Forcing the CommandManager to raise the RequerySuggested event
+            CommandManager.InvalidateRequerySuggested();
+        }
+
+        private void UpdateBreakTimer(object sender, EventArgs e)
+        {
+            TimeSpan timeSpan = user.BreakTime.Elapsed;
+            string elapsedTime = String.Format("{0:00}:{1:00}:{2:00}", timeSpan.Hours, timeSpan.Minutes, timeSpan.Seconds);
+            BreakTimer.Content = elapsedTime;
+
+            CommandManager.InvalidateRequerySuggested();
         }
     }
 }
