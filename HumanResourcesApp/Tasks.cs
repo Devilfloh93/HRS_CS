@@ -8,10 +8,10 @@ namespace HumanResourcesApp
 {
     public class Task
     {
-        public string ProjectName { get; set; }
-        public string TaskName { get; set; }
-        public string WorkLogs { get; set; }
-        public DateOnly DueDate { get; set; }
+        public string ProjectName { get; private set; }
+        public string TaskName { get; private set; }
+        public string WorkLogs { get; private set; }
+        public DateOnly DueDate { get; private set; }
 
         public static List<Task> LoadTaskData()
         {
