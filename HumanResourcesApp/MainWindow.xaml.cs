@@ -28,7 +28,7 @@ namespace HumanResourcesApp
 
             user.SetLoggedInDate();
 
-            DashboardGrid.ItemsSource = Task.LoadTaskData();
+            DashboardDataGrid.ItemsSource = Task.LoadTaskData();
 
             List<ClockIn> clockIns = ClockIn.LoadClockInData();
             for (int i = 0; i < clockIns.Count; i++)
@@ -67,7 +67,7 @@ namespace HumanResourcesApp
             }
         }
 
-        private void DashboardGrid_AutoGeneratingColumn(object sender, DataGridAutoGeneratingColumnEventArgs e)
+        private void DashboardDataGrid_AutoGeneratingColumn(object sender, DataGridAutoGeneratingColumnEventArgs e)
         {
             string headername = e.Column.Header.ToString();
 
@@ -144,6 +144,16 @@ namespace HumanResourcesApp
             BreakTimer.Content = elapsedTime;
 
             CommandManager.InvalidateRequerySuggested();
+        }
+
+        private void Button_Click_ShowProfile(object sender, RoutedEventArgs e)
+        {
+            DashboardGrid.Visibility = Visibility.Hidden;
+        }
+
+        private void Button_Click_ShowDashboard(object sender, RoutedEventArgs e)
+        {
+            DashboardGrid.Visibility = Visibility.Visible;
         }
     }
 }

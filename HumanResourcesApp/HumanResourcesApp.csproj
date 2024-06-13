@@ -6,6 +6,8 @@
     <Nullable>enable</Nullable>
     <ImplicitUsings>enable</ImplicitUsings>
     <UseWPF>true</UseWPF>
+    <Configurations>Debug;Release;HumanResource</Configurations>
+    <Platforms>AnyCPU;x64</Platforms>
   </PropertyGroup>
 
   <ItemGroup>
@@ -18,6 +20,12 @@
 
   <ItemGroup>
     <Resource Include="CompanyIcon.bmp" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Update="Sql\sqlite\human_resource_app.db">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
   </ItemGroup>
 
 </Project>
