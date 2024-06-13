@@ -12,6 +12,12 @@ using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
+using System.Security.Cryptography;
+using System.Security.Policy;
+using Microsoft.Data.Sqlite;
+using System.Xml.Linq;
+using System.IO;
+using HumanResourcesApp.Dao;
 
 namespace HumanResourcesApp
 {
@@ -20,6 +26,9 @@ namespace HumanResourcesApp
     /// </summary>
     public partial class Login : Window
     {
+        private readonly LoginDao loginDao = new();
+        private readonly EmployeeDao employeeDao = new();
+
         public Login()
         {
             InitializeComponent();
@@ -27,11 +36,9 @@ namespace HumanResourcesApp
 
         private void Button_Click_Login(object sender, RoutedEventArgs e)
         {
-            string username = textBoxUsername.Text;
-            string password = textBoxPassword.Password;
-
-            if (username == "test" && password == "test")
+            if (CalculateSha256Hash(textBoxPassword.Password) == loginDao.GetPassword(textBoxUsername.Text))
             {
+                Debug.WriteLine(employeeDao.GetEmployeeData(1).Country);
                 MainWindow mainWindow = new();
                 mainWindow.Show();
                 this.Close();
@@ -40,6 +47,22 @@ namespace HumanResourcesApp
             {
                 Debug.WriteLine("Wrong Username or Password!");
             }
+        }
+
+        private string CalculateSha256Hash(string rawData)
+        {
+            // Create a SHA256
+            using SHA256 sha256Hash = SHA256.Create();
+            // ComputeHash - returns byte array
+            byte[] bytes = sha256Hash.ComputeHash(Encoding.UTF8.GetBytes(rawData));
+
+            // Convert byte array to a string
+            StringBuilder builder = new StringBuilder();
+            for (int i = 0; i < bytes.Length; i++)
+            {
+                builder.Append(bytes[i].ToString("x2"));
+            }
+            return builder.ToString();
         }
 
         private void Button_Click_ResetPassword(object sender, RoutedEventArgs e)
