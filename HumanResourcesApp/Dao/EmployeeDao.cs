@@ -2,6 +2,7 @@
 using System;
 using System.Collections.Generic;
 using System.Data;
+using System.Diagnostics;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -9,87 +10,261 @@ using System.Xml;
 
 namespace HumanResourcesApp.Dao
 {
-    public readonly struct EmployeeData
-    {
-        public string Firstname { get; init; }
-        public string Middlename { get; init; }
-        public string Lastname { get; init; }
-        public string Gender { get; init; }
-        public DateOnly BirthDate { get; init; }
-        public string StreetAdress { get; init; }
-        public string PostalCode { get; init; }
-        public string City { get; init; }
-        public string State { get; init; }
-        public string Country { get; init; }
-        public string Email { get; init; }
-        public string Phone { get; init; }
-        public double Salary { get; init; }
-        public int MaxHolidays { get; init; }
-
-        public EmployeeData(string firstname, string middlename, string lastname, string gender, DateTime birthdate, string streetAdress, string postalCode,
-            string city, string state, string country, string email, string phone, double salary, int maxHolidays)
-        {
-            Firstname = firstname;
-            Middlename = middlename;
-            Lastname = lastname;
-            Gender = gender;
-            BirthDate = new DateOnly(birthdate.Year, birthdate.Month, birthdate.Day);
-            StreetAdress = streetAdress;
-            PostalCode = postalCode;
-            City = city;
-            State = state;
-            Country = country;
-            Email = email;
-            Phone = phone;
-            Salary = salary;
-            MaxHolidays = maxHolidays;
-        }
-    }
-
     public class EmployeeDao
     {
-        private string dbPath = "Sql\\sqlite\\human_resource_app.db";
+        private SqliteConnection connection = new("Data Source=Sql\\sqlite\\human_resource_app.db");
 
-        public EmployeeData GetEmployeeData(int id)
+        public List<Employee> GetAll()
         {
-            EmployeeData employeeData = new();
-            using var connection = new SqliteConnection("Data Source=" + dbPath);
-            connection.Open();
+            List<Employee> employeeData = new();
 
-            var command = connection.CreateCommand();
-
-            command.CommandText =
-            @"
-                    SELECT *
-                    FROM employee
-                    WHERE employee_id = $id
-            ";
-            command.Parameters.AddWithValue("$id", id);
-
-            using var reader = command.ExecuteReader();
-            while (reader.Read())
+            try
             {
-                employeeData = new(
-                   reader.GetString(0),
-                   reader.GetString(1),
+                connection.Open();
+
+                var command = connection.CreateCommand();
+
+                command.CommandText =
+                @"
+                    SELECT e.salary,
+                    e.max_holidays,
+	                p.firstname,
+	                p.middlename,
+	                p.lastname,
+	                p.gender,
+	                p.birth_date,
+	                p.street_adress,
+	                p.postal_code,
+	                p.city,
+	                p.state,
+	                p.country,
+	                p.email,
+	                p.phone,
+                    e.job_title
+                    FROM employee e
+                    INNER JOIN personal_data p
+            ";
+
+                using var reader = command.ExecuteReader();
+                while (reader.Read())
+                {
+                    employeeData.Add(new(
+                       reader.GetDouble(0),
+                       reader.GetInt32(1),
+                       reader.GetString(2),
+                       reader.GetString(3),
+                       reader.GetString(4),
+                       reader.GetString(5),
+                       reader.GetDateTime(6),
+                       reader.GetString(7),
+                       reader.GetString(8),
+                       reader.GetString(9),
+                       reader.GetString(10),
+                       reader.GetString(11),
+                       reader.GetString(12),
+                       reader.GetString(13),
+                       reader.GetString(14)));
+                }
+            }
+            catch (Exception ex)
+            {
+                Debug.WriteLine("ERROR: " + ex);
+            }
+            finally
+            {
+                connection.Close();
+            }
+
+            return employeeData;
+        }
+
+        public Employee? GetSingle(int employeeID)
+        {
+            Employee? employeeData = null;
+
+            try
+            {
+                connection.Open();
+
+                var command = connection.CreateCommand();
+
+                command.CommandText =
+                @"
+                    SELECT e.salary,
+                    e.max_holidays,
+	                p.firstname,
+	                p.middlename,
+	                p.lastname,
+	                p.gender,
+	                p.birth_date,
+	                p.street_adress,
+	                p.postal_code,
+	                p.city,
+	                p.state,
+	                p.country,
+	                p.email,
+	                p.phone,
+                    e.job_title
+                    FROM employee e
+                    INNER JOIN personal_data p ON e.person_id = p.person_id;
+                    WHERE employee_id = $employeeID
+                ";
+                command.Parameters.AddWithValue("$employeeID", employeeID);
+
+                using var reader = command.ExecuteReader();
+
+                while (reader.Read())
+                {
+                    employeeData = new(
+                   reader.GetDouble(0),
+                   reader.GetInt32(1),
                    reader.GetString(2),
                    reader.GetString(3),
-                   reader.GetDateTime(4),
+                   reader.GetString(4),
                    reader.GetString(5),
-                   reader.GetString(6),
+                   reader.GetDateTime(6),
                    reader.GetString(7),
                    reader.GetString(8),
                    reader.GetString(9),
                    reader.GetString(10),
                    reader.GetString(11),
-                   reader.GetDouble(13),
-                   reader.GetInt32(14));
+                   reader.GetString(12),
+                   reader.GetString(13),
+                   reader.GetString(14));
+                }
+            }
+            catch (Exception ex)
+            {
+                Debug.WriteLine("ERROR: " + ex);
+            }
+            finally
+            {
+                connection.Close();
             }
 
-            // string firstname, string middlename, string lastname, string gender, DateOnly birthdate, string streetAdress, string postalCode,
-            // string city, string state, string country, string email, string phone, double salary, int maxHolidays
-
             return employeeData;
+        }
+
+        public void InsertWorkTime(int employeeID)
+        {
+            try
+            {
+                connection.Open();
+
+                var command = connection.CreateCommand();
+
+                command.CommandText =
+                @"
+                    INSERT INTO work_time (employee_id, work_date) VALUES (
+                    $employeeID,
+                    CURRENT_TIMESTAMP
+                )
+                ";
+                command.Parameters.AddWithValue("$employeeID", employeeID);
+
+                command.ExecuteNonQuery();
+            }
+            catch (Exception ex)
+            {
+                Debug.WriteLine("ERROR: " + ex);
+            }
+            finally
+            {
+                connection.Close();
+            }
+        }
+
+        public void UpdateWorkTime(User user)
+        {
+            if (user.WorkTime.Elapsed.Seconds > 0)
+            {
+                try
+                {
+                    connection.Open();
+
+                    var command = connection.CreateCommand();
+
+                    command.CommandText =
+                    @"
+                        UPDATE work_time SET
+                        work_time_in_sec = $workTimeInSec,
+                        WHERE employee_id = $employeeID AND work_date = CURRENT_TIMESTAMP
+                    ";
+                    command.Parameters.AddWithValue("$workTimeInSec", user.WorkTime.Elapsed.TotalSeconds);
+                    command.Parameters.AddWithValue("$employeeID", user.EmployeeID);
+
+                    command.ExecuteNonQuery();
+                }
+                catch (Exception ex)
+                {
+                    Debug.WriteLine("ERROR: " + ex);
+                }
+                finally
+                {
+                    connection.Close();
+                }
+            }
+        }
+
+        public void InsertBreakTime(int employeeID)
+        {
+            try
+            {
+                connection.Open();
+
+                var command = connection.CreateCommand();
+
+                command.CommandText =
+                @"
+                    INSERT INTO break_time (employee_id, break_date) VALUES (
+                    $employeeID,
+                    CURRENT_TIMESTAMP
+                    )
+                ";
+                command.Parameters.AddWithValue("$employeeID", employeeID);
+
+                command.ExecuteNonQuery();
+            }
+            catch (Exception ex)
+            {
+                Debug.WriteLine("ERROR: " + ex);
+            }
+            finally
+            {
+                connection.Close();
+            }
+        }
+
+        public void UpdateBreakTime(User user)
+        {
+            if (user.BreakTime.Elapsed.Seconds > 0)
+            {
+                try
+                {
+                    connection.Open();
+
+                    var command = connection.CreateCommand();
+
+                    command.CommandText =
+                    @"
+                        UPDATE break_time SET
+                        break_time_in_sec = $breakTimeInSec,
+                        WHERE employee_id = $employeeID AND work_date = CURRENT_TIMESTAMP
+                    ";
+                    command.Parameters.AddWithValue("$breakTimeInSec", user.BreakTime.Elapsed.TotalSeconds);
+                    command.Parameters.AddWithValue("$employeeID", user.EmployeeID);
+
+                    command.ExecuteNonQuery();
+                }
+                catch (Exception ex)
+                {
+                    Debug.WriteLine("ERROR: " + ex);
+                }
+                finally
+                {
+                    connection.Close();
+                }
+            }
         }
     }
 }

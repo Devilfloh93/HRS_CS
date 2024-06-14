@@ -5,12 +5,12 @@ firstname, middlename, lastname, gender, birth_date, street_adress, postal_code,
 ) values ("Florian", "", "Pötzsch", "männlich",  "1993-08-13 13:23:44", "Boxberger Str. 13", "01239", "Dresden", "Sachsen", "Deutschland", "poetzsch@gmx.de", "00191393189");
 
 Insert into employee  (
-salary, max_holidays, person_id
-) values (2000.30, 20, 1);
+salary, max_holidays, person_id, job_title
+) values (2000.30, 20, 1, "Developer");
 
 Insert into department (
 department_name, employee_id
-) value ("Test", 1);
+) values ("Test", 1);
 
 Insert into holiday (
 employee_id, holiday_date

@@ -6,18 +6,20 @@ using System.Threading.Tasks;
 
 namespace HumanResourcesApp
 {
-    internal class Person
+    public class Person
     {
         public string FirstName { get; private set; }
         public string MiddleName { get; private set; }
         public string LastName { get; private set; }
         public string Gender { get; private set; }
-        public DateOnly Birthdate { get; private set; }
+        public DateTime Birthdate { get; private set; }
         public string PostalCode { get; private set; }
         public string StreetAdress { get; private set; }
         public string City { get; private set; }
         public string State { get; private set; }
         public string Country { get; private set; }
+        public string Email { get; private set; }
+        public string Phone { get; private set; }
 
         public int Age
         {
@@ -29,7 +31,7 @@ namespace HumanResourcesApp
             }
         }
 
-        public Person(string firstName, string middleName, string lastName, string gender, DateOnly birthdate, string streetAdress, string postalCode, string city, string state, string country)
+        public Person(string firstName, string middleName, string lastName, string gender, DateTime birthdate, string streetAdress, string postalCode, string city, string state, string country, string email, string phone)
         {
             FirstName = firstName;
             MiddleName = middleName;
@@ -41,6 +43,8 @@ namespace HumanResourcesApp
             City = city;
             State = state;
             Country = country;
+            Email = email;
+            Phone = phone;
         }
     }
 }
