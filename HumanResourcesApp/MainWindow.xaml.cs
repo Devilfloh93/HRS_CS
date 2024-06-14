@@ -1,7 +1,9 @@
-﻿using System;
+﻿using HumanResourcesApp.Dao;
+using System;
 using System.Diagnostics;
 using System.Reflection.Emit;
 using System.Reflection.PortableExecutable;
+using System.Security.AccessControl;
 using System.Text;
 using System.Windows;
 using System.Windows.Controls;
@@ -12,6 +14,7 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using System.Windows.Threading;
 
 namespace HumanResourcesApp
 {
@@ -20,13 +23,35 @@ namespace HumanResourcesApp
     /// </summary>
     public partial class MainWindow : Window
     {
-        private User user = new("Florian", "", "Pötzsch", "männlich", new DateOnly(1993, 08, 13), "Boxberger Str. 13", "01239", "Dresden", "Sachsen", "Germany", 20000.50, 24);
+        public User User { get; private set; }
+        private readonly EmployeeDao employeeDao = new();
 
-        public MainWindow()
+        public MainWindow(int employeeID)
         {
             InitializeComponent();
 
-            user.SetLoggedInDate();
+            Employee? userEmployeeData = employeeDao.GetSingle(employeeID);
+
+            if (userEmployeeData == null) { this.Close(); }
+
+            User = new(employeeID, userEmployeeData.Salary, userEmployeeData.MaxHolidays, userEmployeeData.FirstName, userEmployeeData.MiddleName, userEmployeeData.LastName,
+                userEmployeeData.Gender, userEmployeeData.Birthdate, userEmployeeData.StreetAdress, userEmployeeData.PostalCode, userEmployeeData.City, userEmployeeData.State,
+                userEmployeeData.Country, userEmployeeData.Email, userEmployeeData.Phone, userEmployeeData.JobTitle);
+
+            User.SetLoggedInDate();
+
+            if (User.MiddleName.Length > 0)
+                EmployeeName.Content = User.FirstName + " " + User.MiddleName + " " + User.LastName;
+            else
+                EmployeeName.Content = User.FirstName + " " + User.LastName;
+
+            JobTitle.Content = User.JobTitle;
+
+            List<Employee> employeeData = employeeDao.GetAll();
+            for (int i = 0; i < employeeData.Count; i++)
+            {
+                Debug.WriteLine(employeeData[i].Country);
+            }
 
             DashboardDataGrid.ItemsSource = Task.LoadTaskData();
 
@@ -36,35 +61,17 @@ namespace HumanResourcesApp
                 TimeDashboardCombo.Items.Add(clockIns[i].Categorie);
             }
 
-            System.Windows.Threading.DispatcherTimer dispatcherTimer = new();
-            dispatcherTimer.Tick += new EventHandler(UpdateBreakTimer);
-            dispatcherTimer.Tick += new EventHandler(UpdateWorkTimer);
+            DispatcherTimer dispatcherTimer = new();
+            dispatcherTimer.Tick += (sender, e) => { UpdateBreakTimer(); };
+            dispatcherTimer.Tick += (sender, e) => { UpdateWorkTimer(); };
             dispatcherTimer.Interval = TimeSpan.FromSeconds(1);
             dispatcherTimer.Start();
 
-            DateOnly newDate = new(1993, 08, 13);
-
-            Employee employee = new("Florian", "", "Pötzsch", "männlich", newDate, "Boxberger Str. 13", "01239", "Dresden", "Sachsen", "Germany", 20000.50, 24);
-
-            employee.UsedHolidays.Add(new DateOnly(2004, 09, 02));
-            employee.UsedHolidays.Add(new DateOnly(2004, 09, 03));
-            employee.UsedHolidays.Add(new DateOnly(1984, 05, 15));
-
-            employee.SickDays.Add(new DateOnly(1998, 11, 15));
-            employee.SickDays.Add(new DateOnly(1998, 11, 16));
-            employee.SickDays.Add(new DateOnly(1998, 11, 17));
-
-            for (int i = 0; i < employee.SickDays.Count; i++)
-            {
-                DateOnly date = employee.SickDays[i];
-                Debug.WriteLine("SickDay am: " + date.Day + "." + date.Month + "." + date.Year);
-            }
-
-            for (int i = 0; i < employee.UsedHolidays.Count; i++)
-            {
-                DateOnly date = employee.SickDays[i];
-                Debug.WriteLine("UsedHoliday am: " + date.Day + "." + date.Month + "." + date.Year);
-            }
+            DispatcherTimer dispatcherTimer1 = new();
+            dispatcherTimer1.Tick += (sender, e) => { employeeDao.UpdateBreakTime(User); };
+            dispatcherTimer1.Tick += (sender, e) => { employeeDao.UpdateWorkTime(User); };
+            dispatcherTimer1.Interval = TimeSpan.FromMinutes(1);
+            dispatcherTimer1.Start();
         }
 
         private void DashboardDataGrid_AutoGeneratingColumn(object sender, DataGridAutoGeneratingColumnEventArgs e)
@@ -96,8 +103,13 @@ namespace HumanResourcesApp
             if (TimeDashboardCombo.SelectedIndex == -1)
                 return;
 
-            user.WorkTime.Start();
-            user.BreakTime.Stop();
+            if (User.WorkTime.Elapsed.Seconds == 0)
+            {
+                employeeDao.InsertWorkTime(User.EmployeeID);
+            }
+
+            User.WorkTime.Start();
+            User.BreakTime.Stop();
 
             switch (Enum.ToObject(typeof(ClockInCombo), TimeDashboardCombo.SelectedIndex))
             {
@@ -120,16 +132,21 @@ namespace HumanResourcesApp
 
         private void Button_Click_Break(object sender, RoutedEventArgs e)
         {
-            user.WorkTime.Stop();
-            user.BreakTime.Start();
+            if (User.BreakTime.Elapsed.Seconds == 0)
+            {
+                employeeDao.InsertBreakTime(User.EmployeeID);
+            }
+
+            User.WorkTime.Stop();
+            User.BreakTime.Start();
 
             BreakBtn.Visibility = Visibility.Hidden;
             ClockInBtn.Visibility = Visibility.Visible;
         }
 
-        private void UpdateWorkTimer(object sender, EventArgs e)
+        private void UpdateWorkTimer()
         {
-            TimeSpan timeSpan = user.WorkTime.Elapsed;
+            TimeSpan timeSpan = User.WorkTime.Elapsed;
             string elapsedTime = String.Format("{0:00}:{1:00}:{2:00}", timeSpan.Hours, timeSpan.Minutes, timeSpan.Seconds);
             WorkTimer.Content = elapsedTime;
 
@@ -137,9 +154,9 @@ namespace HumanResourcesApp
             CommandManager.InvalidateRequerySuggested();
         }
 
-        private void UpdateBreakTimer(object sender, EventArgs e)
+        private void UpdateBreakTimer()
         {
-            TimeSpan timeSpan = user.BreakTime.Elapsed;
+            TimeSpan timeSpan = User.BreakTime.Elapsed;
             string elapsedTime = String.Format("{0:00}:{1:00}:{2:00}", timeSpan.Hours, timeSpan.Minutes, timeSpan.Seconds);
             BreakTimer.Content = elapsedTime;
 

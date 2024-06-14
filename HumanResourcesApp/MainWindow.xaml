@@ -297,8 +297,8 @@
                 </Grid.RowDefinitions>
 
                 <Image Source="/companyIcon.bmp" Height="100"  VerticalAlignment="Center" HorizontalAlignment="Center"  Width="100" />
-                <Label Content="PLACEHOLDERUSERNAME" HorizontalAlignment="Center" Grid.Row="1" VerticalAlignment="Center"  FontWeight="SemiBold" FontSize="14" />
-                <Label Content="PLACEHOLDERUSERJOBTITLE" HorizontalAlignment="Center" Grid.Row="2" VerticalAlignment="Center" FontSize="10" Foreground="DarkGray" />
+                <Label x:Name="EmployeeName" Content="PLACEHOLDERUSERNAME" HorizontalAlignment="Center" Grid.Row="1" VerticalAlignment="Center"  FontWeight="SemiBold" FontSize="14" />
+                <Label x:Name="JobTitle" Content="PLACEHOLDERUSERJOBTITLE" HorizontalAlignment="Center" Grid.Row="2" VerticalAlignment="Center" FontSize="10" Foreground="DarkGray" />
             </Grid>
 
             <Label Grid.Row="1" Content="Deine Zeiten" HorizontalAlignment="Left" VerticalAlignment="Center" FontSize="20" FontWeight="SemiBold" />

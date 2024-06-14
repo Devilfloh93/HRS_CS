@@ -27,7 +27,6 @@ namespace HumanResourcesApp
     public partial class Login : Window
     {
         private readonly LoginDao loginDao = new();
-        private readonly EmployeeDao employeeDao = new();
 
         public Login()
         {
@@ -38,8 +37,7 @@ namespace HumanResourcesApp
         {
             if (CalculateSha256Hash(textBoxPassword.Password) == loginDao.GetPassword(textBoxUsername.Text))
             {
-                Debug.WriteLine(employeeDao.GetEmployeeData(1).Country);
-                MainWindow mainWindow = new();
+                MainWindow mainWindow = new(loginDao.GetEmployeeID(textBoxUsername.Text));
                 mainWindow.Show();
                 this.Close();
             }
