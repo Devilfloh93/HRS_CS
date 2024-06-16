@@ -1,11 +1,37 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
 namespace HumanResourcesApp
 {
+    public struct WorkSchedule
+    {
+        public DateTime Start { get; private set; }
+        public DateTime End { get; private set; }
+
+        public WorkSchedule(DateTime start, DateTime end)
+        {
+            Start = start;
+            End = end;
+        }
+    }
+
+    public struct Attendance
+    {
+        public DateTime Start { get; private set; }
+
+        public int DurationInSec { get; set; }
+
+        public Attendance(DateTime start, int durationInSec)
+        {
+            Start = start;
+            DurationInSec = durationInSec;
+        }
+    }
+
     public class Employee : Person
     {
         public double Salary { get; private set; }
@@ -17,24 +43,26 @@ namespace HumanResourcesApp
             get;
         } = [];
 
-        public List<DateOnly> SickDays
-        {
-            get;
-        } = [];
-
         public List<DateOnly> PlannedHolidays
         {
             get;
         } = [];
 
-        public List<DateOnly> Attendance
+        public List<DateOnly> SickDays
         {
             get;
         } = [];
 
-        public List<DateOnly> WorkDays
+        public List<WorkSchedule> WorkSchedules
         {
             get;
+            set;
+        } = [];
+
+        public List<Attendance> Attendance
+        {
+            get;
+            set;
         } = [];
 
         public Employee(double salary, int maxHolidays, string firstname, string middleName, string lastname, string gender,

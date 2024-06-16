@@ -164,9 +164,9 @@
                             <Label Foreground="DarkGray"  Grid.Column="2" Content="Abwesend" HorizontalAlignment="Center" VerticalAlignment="Bottom" FontSize="12" />
                             <Label Foreground="DarkGray"  Grid.Column="4" Content="Verspätet" HorizontalAlignment="Center" VerticalAlignment="Bottom" FontSize="12" />
 
-                            <Label Grid.Row="1" Content="260" HorizontalAlignment="Center" VerticalAlignment="Top" FontSize="12" FontWeight="SemiBold" />
-                            <Label Grid.Column="2" Grid.Row="1" Content="15" HorizontalAlignment="Center" VerticalAlignment="Top" FontSize="12" FontWeight="SemiBold" />
-                            <Label Grid.Column="4" Grid.Row="1" Content="05" HorizontalAlignment="Center" VerticalAlignment="Top" FontSize="12" FontWeight="SemiBold" />
+                            <Label x:Name="DashboardAttPresent" Grid.Row="1" Content="260" HorizontalAlignment="Center" VerticalAlignment="Top" FontSize="12" FontWeight="SemiBold" />
+                            <Label x:Name="DashboardAttAbsent" Grid.Column="2" Grid.Row="1" Content="15" HorizontalAlignment="Center" VerticalAlignment="Top" FontSize="12" FontWeight="SemiBold" />
+                            <Label x:Name="DashboardAttDelayed" Grid.Column="4" Grid.Row="1" Content="05" HorizontalAlignment="Center" VerticalAlignment="Top" FontSize="12" FontWeight="SemiBold" />
 
                             <Grid Grid.Column="1" Grid.RowSpan="2" Background="LightGray" Height="35" VerticalAlignment="Center"></Grid>
                             <Grid Grid.Column="3" Grid.RowSpan="2" Background="LightGray" Height="35" VerticalAlignment="Center"></Grid>
@@ -193,6 +193,8 @@
                                 <ColumnDefinition></ColumnDefinition>
                                 <ColumnDefinition Width="1"></ColumnDefinition>
                                 <ColumnDefinition></ColumnDefinition>
+                                <ColumnDefinition Width="1"></ColumnDefinition>
+                                <ColumnDefinition></ColumnDefinition>
                             </Grid.ColumnDefinitions>
 
                             <Grid.RowDefinitions>
@@ -202,14 +204,17 @@
 
                             <Label Foreground="DarkGray"  Content="Insgesamt" HorizontalAlignment="Center" VerticalAlignment="Bottom" FontSize="12" />
                             <Label Foreground="DarkGray"  Grid.Column="2" Content="Verbraucht" HorizontalAlignment="Center" VerticalAlignment="Bottom" FontSize="12" />
-                            <Label Foreground="DarkGray"  Grid.Column="4" Content="Verfügbar" HorizontalAlignment="Center" VerticalAlignment="Bottom" FontSize="12" />
+                            <Label Foreground="DarkGray"  Grid.Column="4" Content="Geplant" HorizontalAlignment="Center" VerticalAlignment="Bottom" FontSize="12" />
+                            <Label Foreground="DarkGray"  Grid.Column="6" Content="Verfügbar" HorizontalAlignment="Center" VerticalAlignment="Bottom" FontSize="12" />
 
-                            <Label Grid.Row="1" Content="12" HorizontalAlignment="Center" VerticalAlignment="Top" FontSize="12" FontWeight="SemiBold" />
-                            <Label Grid.Column="2" Grid.Row="1" Content="04" HorizontalAlignment="Center" VerticalAlignment="Top" FontSize="12" FontWeight="SemiBold" />
-                            <Label Grid.Column="4" Grid.Row="1" Content="08" HorizontalAlignment="Center" VerticalAlignment="Top" FontSize="12" FontWeight="SemiBold" />
+                            <Label x:Name="DashboardHolidayMax" Grid.Row="1" Content="12" HorizontalAlignment="Center" VerticalAlignment="Top" FontSize="12" FontWeight="SemiBold" />
+                            <Label x:Name="DashboardHolidayUsed" Grid.Column="2" Grid.Row="1" Content="04" HorizontalAlignment="Center" VerticalAlignment="Top" FontSize="12" FontWeight="SemiBold" />
+                            <Label x:Name="DashboardHolidayPlanned" Grid.Column="4" Grid.Row="1" Content="08" HorizontalAlignment="Center" VerticalAlignment="Top" FontSize="12" FontWeight="SemiBold" />
+                            <Label x:Name="DashboardHolidayAvailable" Grid.Column="6" Grid.Row="1" Content="08" HorizontalAlignment="Center" VerticalAlignment="Top" FontSize="12" FontWeight="SemiBold" />
 
                             <Grid Grid.Column="1" Grid.RowSpan="2" Background="LightGray" Height="35" VerticalAlignment="Center"></Grid>
                             <Grid Grid.Column="3" Grid.RowSpan="2" Background="LightGray" Height="35" VerticalAlignment="Center"></Grid>
+                            <Grid Grid.Column="5" Grid.RowSpan="2" Background="LightGray" Height="35" VerticalAlignment="Center"></Grid>
                         </Grid>
                     </Grid>
                 </Grid>
@@ -297,8 +302,8 @@
                 </Grid.RowDefinitions>
 
                 <Image Source="/companyIcon.bmp" Height="100"  VerticalAlignment="Center" HorizontalAlignment="Center"  Width="100" />
-                <Label x:Name="EmployeeName" Content="PLACEHOLDERUSERNAME" HorizontalAlignment="Center" Grid.Row="1" VerticalAlignment="Center"  FontWeight="SemiBold" FontSize="14" />
-                <Label x:Name="JobTitle" Content="PLACEHOLDERUSERJOBTITLE" HorizontalAlignment="Center" Grid.Row="2" VerticalAlignment="Center" FontSize="10" Foreground="DarkGray" />
+                <Label x:Name="DashboardEmployeeName" Content="PLACEHOLDERUSERNAME" HorizontalAlignment="Center" Grid.Row="1" VerticalAlignment="Center"  FontWeight="SemiBold" FontSize="14" />
+                <Label x:Name="DashboardJobTitle" Content="PLACEHOLDERUSERJOBTITLE" HorizontalAlignment="Center" Grid.Row="2" VerticalAlignment="Center" FontSize="10" Foreground="DarkGray" />
             </Grid>
 
             <Label Grid.Row="1" Content="Deine Zeiten" HorizontalAlignment="Left" VerticalAlignment="Center" FontSize="20" FontWeight="SemiBold" />
@@ -327,7 +332,7 @@
                     <Label x:Name="WorkTimer" Content="00:00:00" HorizontalAlignment="Center" VerticalAlignment="Top" FontSize="12" />
                 </Border>
 
-                <ComboBox x:Name="TimeDashboardCombo" HorizontalContentAlignment="Left" VerticalContentAlignment="Center" Style="{DynamicResource ComboBoxStyle1}" BorderThickness="1" BorderBrush="LightGray" HorizontalAlignment="Center" Grid.Row="2" VerticalAlignment="Center" Width="140" Height="30" Background="{x:Null}" />
+                <ComboBox x:Name="DashboardClockInCombo" HorizontalContentAlignment="Left" VerticalContentAlignment="Center" Style="{DynamicResource ComboBoxStyle1}" BorderThickness="1" BorderBrush="LightGray" HorizontalAlignment="Center" Grid.Row="2" VerticalAlignment="Center" Width="140" Height="30" Background="{x:Null}" />
                 <Border x:Name="ClockInBtn" Grid.Column="1" Grid.Row="2" Width="140" Height="30" BorderThickness="1" Background="MediumSeaGreen" HorizontalAlignment="Center" VerticalAlignment="Center" CornerRadius="5">
                     <Button Style="{DynamicResource ButtonStyle1}" Cursor="Hand" Content="Einstempeln" Foreground="White" Background="Transparent" BorderThickness="0" FontSize="14" Click="Button_Click_ClockIn" />
                 </Border>
