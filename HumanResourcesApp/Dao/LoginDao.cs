@@ -10,7 +10,7 @@ namespace HumanResourcesApp.Dao
 {
     public class LoginDao
     {
-        private SqliteConnection connection = new("Data Source=Sql\\sqlite\\human_resource_app.db");
+        private readonly SqliteConnection connection = new("Data Source=Sql\\sqlite\\human_resource_app.db");
 
         public string GetPassword(string username)
         {

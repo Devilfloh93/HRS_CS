@@ -12,11 +12,11 @@ namespace HumanResourcesApp.Dao
 {
     public class EmployeeDao
     {
-        private SqliteConnection connection = new("Data Source=Sql\\sqlite\\human_resource_app.db");
+        private readonly SqliteConnection connection = new("Data Source=Sql\\sqlite\\human_resource_app.db");
 
         public List<Employee> GetAll()
         {
-            List<Employee> employeeData = new();
+            List<Employee> employeeData = [];
 
             try
             {
@@ -42,7 +42,7 @@ namespace HumanResourcesApp.Dao
 	                p.phone,
                     e.job_title
                     FROM employee e
-                    INNER JOIN personal_data p
+                    INNER JOIN personal_data p on e.employee_id = p.person_id
             ";
 
                 using var reader = command.ExecuteReader();
@@ -78,9 +78,9 @@ namespace HumanResourcesApp.Dao
             return employeeData;
         }
 
-        public Employee? GetSingle(int employeeID)
+        public List<WorkSchedule> GetWorkSchedule(int employeeID)
         {
-            Employee? employeeData = null;
+            List<WorkSchedule> workSchedule = [];
 
             try
             {
@@ -90,47 +90,19 @@ namespace HumanResourcesApp.Dao
 
                 command.CommandText =
                 @"
-                    SELECT e.salary,
-                    e.max_holidays,
-	                p.firstname,
-	                p.middlename,
-	                p.lastname,
-	                p.gender,
-	                p.birth_date,
-	                p.street_adress,
-	                p.postal_code,
-	                p.city,
-	                p.state,
-	                p.country,
-	                p.email,
-	                p.phone,
-                    e.job_title
-                    FROM employee e
-                    INNER JOIN personal_data p ON e.person_id = p.person_id;
+                    SELECT w.schedule_start,
+                    w.schedule_end
+                    FROM work_schedule w
                     WHERE employee_id = $employeeID
                 ";
                 command.Parameters.AddWithValue("$employeeID", employeeID);
 
                 using var reader = command.ExecuteReader();
-
                 while (reader.Read())
                 {
-                    employeeData = new(
-                   reader.GetDouble(0),
-                   reader.GetInt32(1),
-                   reader.GetString(2),
-                   reader.GetString(3),
-                   reader.GetString(4),
-                   reader.GetString(5),
-                   reader.GetDateTime(6),
-                   reader.GetString(7),
-                   reader.GetString(8),
-                   reader.GetString(9),
-                   reader.GetString(10),
-                   reader.GetString(11),
-                   reader.GetString(12),
-                   reader.GetString(13),
-                   reader.GetString(14));
+                    workSchedule.Add(new(
+                       reader.GetDateTime(0),
+                       reader.GetDateTime(1)));
                 }
             }
             catch (Exception ex)
@@ -142,7 +114,46 @@ namespace HumanResourcesApp.Dao
                 connection.Close();
             }
 
-            return employeeData;
+            return workSchedule;
+        }
+
+        public List<Attendance> GetAttendance(int employeeID)
+        {
+            List<Attendance> attendance = [];
+
+            try
+            {
+                connection.Open();
+
+                var command = connection.CreateCommand();
+
+                command.CommandText =
+                @"
+                    SELECT w.created_at,
+                    w.work_time_in_sec
+                    FROM work_time w
+                    WHERE employee_id = $employeeID
+                ";
+                command.Parameters.AddWithValue("$employeeID", employeeID);
+
+                using var reader = command.ExecuteReader();
+                while (reader.Read())
+                {
+                    attendance.Add(new(
+                       reader.GetDateTime(0),
+                       reader.GetInt32(1)));
+                }
+            }
+            catch (Exception ex)
+            {
+                Debug.WriteLine("ERROR: " + ex);
+            }
+            finally
+            {
+                connection.Close();
+            }
+
+            return attendance;
         }
 
         public void InsertWorkTime(int employeeID)
@@ -155,9 +166,9 @@ namespace HumanResourcesApp.Dao
 
                 command.CommandText =
                 @"
-                    INSERT INTO work_time (employee_id, work_date) VALUES (
+                    INSERT INTO work_time (employee_id, created_at) VALUES (
                     $employeeID,
-                    CURRENT_TIMESTAMP
+                    datetime('now')
                 )
                 ";
                 command.Parameters.AddWithValue("$employeeID", employeeID);
@@ -176,7 +187,7 @@ namespace HumanResourcesApp.Dao
 
         public void UpdateWorkTime(User user)
         {
-            if (user.WorkTime.Elapsed.Seconds > 0)
+            if (user.WorkTime.Elapsed.TotalSeconds > 0)
             {
                 try
                 {
@@ -187,10 +198,10 @@ namespace HumanResourcesApp.Dao
                     command.CommandText =
                     @"
                         UPDATE work_time SET
-                        work_time_in_sec = $workTimeInSec,
-                        WHERE employee_id = $employeeID AND work_date = CURRENT_TIMESTAMP
+                        work_time_in_sec = $workTimeInSec
+                        WHERE employee_id = $employeeID AND strftime('%Y-%m-%d', created_at) = strftime('%Y-%m-%d', 'now')
                     ";
-                    command.Parameters.AddWithValue("$workTimeInSec", user.WorkTime.Elapsed.TotalSeconds);
+                    command.Parameters.AddWithValue("$workTimeInSec", (int)user.WorkTime.Elapsed.TotalSeconds);
                     command.Parameters.AddWithValue("$employeeID", user.EmployeeID);
 
                     command.ExecuteNonQuery();
@@ -216,9 +227,9 @@ namespace HumanResourcesApp.Dao
 
                 command.CommandText =
                 @"
-                    INSERT INTO break_time (employee_id, break_date) VALUES (
+                    INSERT INTO break_time (employee_id, created_at) VALUES (
                     $employeeID,
-                    CURRENT_TIMESTAMP
+                    datetime('now')
                     )
                 ";
                 command.Parameters.AddWithValue("$employeeID", employeeID);
@@ -237,7 +248,7 @@ namespace HumanResourcesApp.Dao
 
         public void UpdateBreakTime(User user)
         {
-            if (user.BreakTime.Elapsed.Seconds > 0)
+            if (user.BreakTime.Elapsed.TotalSeconds > 0)
             {
                 try
                 {
@@ -248,10 +259,10 @@ namespace HumanResourcesApp.Dao
                     command.CommandText =
                     @"
                         UPDATE break_time SET
-                        break_time_in_sec = $breakTimeInSec,
-                        WHERE employee_id = $employeeID AND work_date = CURRENT_TIMESTAMP
+                        break_time_in_sec = $breakTimeInSec
+                        WHERE employee_id = $employeeID AND strftime('%Y-%m-%d', created_at) = strftime('%Y-%m-%d', 'now')
                     ";
-                    command.Parameters.AddWithValue("$breakTimeInSec", user.BreakTime.Elapsed.TotalSeconds);
+                    command.Parameters.AddWithValue("$breakTimeInSec", (int)user.BreakTime.Elapsed.TotalSeconds);
                     command.Parameters.AddWithValue("$employeeID", user.EmployeeID);
 
                     command.ExecuteNonQuery();

@@ -38,13 +38,10 @@ namespace HumanResourcesApp
             if (CalculateSha256Hash(textBoxPassword.Password) == loginDao.GetPassword(textBoxUsername.Text))
             {
                 MainWindow mainWindow = new(loginDao.GetEmployeeID(textBoxUsername.Text));
-                mainWindow.Show();
                 this.Close();
             }
             else
-            {
                 Debug.WriteLine("Wrong Username or Password!");
-            }
         }
 
         private string CalculateSha256Hash(string rawData)
