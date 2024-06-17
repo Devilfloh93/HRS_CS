@@ -1,23 +1,27 @@
-﻿using Microsoft.Data.Sqlite;
-using System;
-using System.Collections.Generic;
-using System.Data;
-using System.Diagnostics;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Xml;
-
-namespace HumanResourcesApp.Dao
+﻿namespace HumanResourcesApp.Dao
 {
-    public class EmployeeDao
+    public class EmployeeDAO : BaseDAO
     {
-        private readonly SqliteConnection connection = new("Data Source=Sql\\sqlite\\human_resource_app.db");
 
-        public List<Employee> GetAll()
+        private static EmployeeDAO Instance = null;
+
+        public static EmployeeDAO Instance()
         {
-            List<Employee> employeeData = [];
+            if(Instance == null)
+            {
+                Instance = new EmployeeDAO();
+            }
+            return Instance;
+        } 
 
+        private EmployeeDAO() { 
+        //Nothing TODO. Prevents class instantiation.
+        }
+
+        public List<Employee> GetAllEmployees()
+        {
+            List<Employee> employees = new List<Employee>();
+            
             try
             {
                 connection.Open();
@@ -78,9 +82,12 @@ namespace HumanResourcesApp.Dao
             return employeeData;
         }
 
+        /**
+         * This method should be located in the WorkScheduleDAO
+         */
         public List<WorkSchedule> GetWorkSchedule(int employeeID)
         {
-            List<WorkSchedule> workSchedule = [];
+            List<WorkSchedule> workSchedule = new List<WorkSchedule>();
 
             try
             {
@@ -117,9 +124,12 @@ namespace HumanResourcesApp.Dao
             return workSchedule;
         }
 
+        /**
+         * This method should be located in the AttendanceDAO
+         */
         public List<Attendance> GetAttendance(int employeeID)
         {
-            List<Attendance> attendance = [];
+            List<Attendance> attendance = new List<Attendance>();
 
             try
             {
@@ -156,6 +166,9 @@ namespace HumanResourcesApp.Dao
             return attendance;
         }
 
+        /**
+         * This method should be located in the WorktimeDAO
+         */
         public void InsertWorkTime(int employeeID)
         {
             try
@@ -185,6 +198,9 @@ namespace HumanResourcesApp.Dao
             }
         }
 
+        /**
+         * This method should be located in the WorktimeDAO
+         */
         public void UpdateWorkTime(User user)
         {
             if (user.WorkTime.Elapsed.TotalSeconds > 0)
@@ -217,6 +233,9 @@ namespace HumanResourcesApp.Dao
             }
         }
 
+        /**
+         * This method should be located in the BreaktimeDAO
+         */
         public void InsertBreakTime(int employeeID)
         {
             try
@@ -246,6 +265,9 @@ namespace HumanResourcesApp.Dao
             }
         }
 
+        /**
+         * This method should be located in the BreaktimeDAO
+         */
         public void UpdateBreakTime(User user)
         {
             if (user.BreakTime.Elapsed.TotalSeconds > 0)

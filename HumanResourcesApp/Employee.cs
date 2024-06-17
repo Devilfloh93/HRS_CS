@@ -41,30 +41,33 @@ namespace HumanResourcesApp
         public List<DateOnly> UsedHolidays
         {
             get;
-        } = [];
+        } = new List<DateOnly>();
 
         public List<DateOnly> PlannedHolidays
         {
             get;
-        } = [];
+        } = new List<DateOnly>();
 
         public List<DateOnly> SickDays
         {
             get;
-        } = [];
+        } = new List<DateOnly>();
 
         public List<WorkSchedule> WorkSchedules
         {
             get;
             set;
-        } = [];
+        } = new List<WorkSchedule>();
 
         public List<Attendance> Attendance
         {
             get;
             set;
-        } = [];
+        } = new List<Attendance>();
 
+        /**
+         * Methods should have max 3 parameters -> use the builder pattern instead.
+         */
         public Employee(double salary, int maxHolidays, string firstname, string middleName, string lastname, string gender,
                         DateTime birthDate, string streetAdress, string postalCode, string city, string state, string country, string email, string phone, string jobTitle)
             : base(firstname, middleName, lastname, gender, birthDate, streetAdress, postalCode, city, state, country, email, phone)
