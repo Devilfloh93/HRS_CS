@@ -1,17 +1,10 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Diagnostics;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using Microsoft.Data.Sqlite;
-
+﻿
 namespace HumanResourcesApp.Dao
 {
     public class UserDAO
     {
         private readonly SqliteConnection connection = new("Data Source=Sql\\sqlite\\human_resource_app.db");
-        private readonly EmployeeDao employeeDao = new();
+        private const EmployeeDAO employeeDAO = EmployeeDAO.Instance();
 
         public User? Create(int employeeID)
         {
@@ -71,8 +64,8 @@ namespace HumanResourcesApp.Dao
 
                 if (user != null)
                 {
-                    user.WorkSchedules = employeeDao.GetWorkSchedule(employeeID);
-                    user.Attendance = employeeDao.GetAttendance(employeeID);
+                    user.WorkSchedules = employeeDAO.GetWorkSchedule(employeeID);
+                    user.Attendance = employeeDAO.GetAttendance(employeeID);
                 }
             }
             catch (Exception ex)
